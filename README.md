@@ -1,2 +1,2 @@
 # Ivan Franco
-Software Developer - I'll post more info later...
+Software Developer :computer: - Currently living in Malta :sunny: :palm_tree:
