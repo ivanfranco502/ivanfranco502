@@ -8,4 +8,3 @@ Software Developer :computer: - Currently living in Barcelona :sunny: :palm_tree
 ## Projects
 - **Gitbucket**: Chrome extension to improve the user experience in Github, especially in Pull request's pages. ([**Chrome Extension Web Store**](https://chrome.google.com/webstore/detail/gitbucket/hecoijmopmoooilppeabikeehbemdoai))
 - **Markdown previewer**: Website to instantly see how will be shown your markdown code. ([**Try it out!**](https://ivanfranco502.github.io/markdownpreviewer/))
-- **My wedding site**: Website for my wedding, including the RSVP form. ([**Check it!**](https://ivanfranco502.github.io/wedding/index.html))
