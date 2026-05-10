@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<section class="max-w-3xl mx-auto px-6 pt-16 pb-12 sm:pt-24 sm:pb-16 fade-in">
+  <p class="text-sm text-[color:var(--color-muted)] mb-3">
+    {site.role} · {site.location} ☀️🌴
+  </p>
+  <h1 class="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.05]">
+    Hey, I'm <span class="gradient-text">{site.name}</span>.
+  </h1>
+  <p class="mt-6 text-lg sm:text-xl text-[color:var(--color-muted)] max-w-2xl leading-relaxed">
+    {site.bio}
+  </p>
+  <div class="mt-8 flex flex-wrap items-center gap-3">
+    <a
+      href="/projects"
+      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[color:var(--color-fg)] text-[color:var(--color-bg)] font-medium hover:opacity-90 transition-opacity"
+    >
+      See projects →
+    </a>
+    <a
+      href="/resume"
+      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[color:var(--color-subtle)] hover:bg-[color:var(--color-subtle)] transition-colors"
+    >
+      Resume
+    </a>
+    <div class="ml-2">
+      <SocialLinks />
+    </div>
+  </div>
+</section>

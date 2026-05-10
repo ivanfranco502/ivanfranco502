@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FadeIn from '../components/FadeIn.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import PodcastLinks from '../components/PodcastLinks.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { site, writingProfiles } from '../data/site';
+import { Icon } from 'astro-icon/components';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const articles = (await getCollection('articles'))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+const podcastEntries = await getCollection('podcast');
+const matebreak = podcastEntries.find(p => p.id === 'matebreak') ?? podcastEntries[0];
+---
+
+<BaseLayout>
+  <Hero />
+
+  <FadeIn class="max-w-3xl mx-auto px-6 pt-8 pb-12">
+    <SectionHeading eyebrow="Selected work" title="Projects" href="/projects" ctaLabel="All projects" />
+    <div class="grid sm:grid-cols-2 gap-4">
+      {featuredProjects.map(project => <ProjectCard project={project} />)}
+    </div>
+  </FadeIn>
+
+  <FadeIn class="max-w-3xl mx-auto px-6 py-12">
+    <SectionHeading eyebrow="Writing" title="Recent articles" href="/writing" ctaLabel="All writing" />
+    {articles.length > 0 ? (
+      <div class="grid gap-3">
+        {articles.map(article => <ArticleCard article={article} />)}
+      </div>
+    ) : (
+      <div class="p-6 rounded-xl border border-[color:var(--color-subtle)]">
+        <p class="text-[color:var(--color-muted)] mb-4">
+          I publish longer-form pieces on Collected Notes and Medium.
+        </p>
+        <ul class="flex flex-wrap gap-2">
+          {writingProfiles.map(p => (
+            <li>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-[color:var(--color-subtle)] hover:border-[color:var(--color-fg)]/30 hover:-translate-y-0.5 hover:shadow-md transition-all text-sm"
+              >
+                <Icon name={p.icon} class="size-4" />
+                {p.platform}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </FadeIn>
+
+  {matebreak && (
+    <FadeIn class="max-w-3xl mx-auto px-6 py-12">
+      <SectionHeading eyebrow="Podcast" title={matebreak.data.name} href="/podcast" ctaLabel="More about the show" />
+      <div class="p-6 rounded-xl border border-[color:var(--color-subtle)]">
+        <p class="text-lg font-medium mb-1">{matebreak.data.tagline}</p>
+        <p class="text-[color:var(--color-muted)] mb-5">{matebreak.data.description}</p>
+        <PodcastLinks platforms={matebreak.data.platforms} />
+      </div>
+    </FadeIn>
+  )}
+
+  <FadeIn class="max-w-3xl mx-auto px-6 py-12 pb-20">
+    <SectionHeading eyebrow="Get in touch" title="Say hello" />
+    <div class="p-6 rounded-xl border border-[color:var(--color-subtle)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+      <div>
+        <p class="text-[color:var(--color-muted)] mb-2">
+          The best way to reach me is by email or on the platforms below.
+        </p>
+        <a
+          href={`mailto:${site.email}`}
+          class="text-lg font-medium hover:text-[color:var(--color-accent-from)] transition-colors"
+        >
+          {site.email} →
+        </a>
+      </div>
+      <SocialLinks />
+    </div>
+  </FadeIn>
+</BaseLayout>

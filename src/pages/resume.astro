@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+
+const pdfPath = '/resume/ivan-franco-cv.pdf';
+---
+
+<BaseLayout title="Resume" description={`Resume of ${site.name}, ${site.role} based in ${site.location}.`}>
+  <section class="max-w-3xl mx-auto px-6 pt-16 pb-16 fade-in">
+    <SectionHeading eyebrow="CV" title="Resume" />
+    <p class="text-[color:var(--color-muted)] -mt-3 mb-8 max-w-2xl leading-relaxed">
+      {site.name} — {site.role} based in {site.location}. The PDF below has the long version; for quick context, check the <a href="/projects" class="text-[color:var(--color-fg)] underline underline-offset-4 hover:text-[color:var(--color-accent-from)] transition-colors">projects</a> and <a href="/writing" class="text-[color:var(--color-fg)] underline underline-offset-4 hover:text-[color:var(--color-accent-from)] transition-colors">writing</a> pages.
+    </p>
+
+    <a
+      href={pdfPath}
+      download
+      class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[color:var(--color-fg)] text-[color:var(--color-bg)] font-medium hover:opacity-90 transition-opacity"
+    >
+      <Icon name="lucide:download" class="size-4" />
+      Download CV (PDF)
+    </a>
+
+    <p class="mt-4 text-xs text-[color:var(--color-muted)]">
+      Note: drop the PDF at <code class="px-1.5 py-0.5 rounded bg-[color:var(--color-subtle)]">public{pdfPath}</code> before deploying.
+    </p>
+  </section>
+</BaseLayout>

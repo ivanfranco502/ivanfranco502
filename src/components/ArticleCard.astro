@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = { article: CollectionEntry<'articles'> };
+const { article } = Astro.props;
+const { title, url, platform, publishedAt, excerpt } = article.data;
+const platformLabel = platform === 'collected-notes' ? 'Collected Notes' : 'Medium';
+const dateText = publishedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block p-5 rounded-xl border border-[color:var(--color-subtle)] hover:border-[color:var(--color-fg)]/30 hover:-translate-y-1 hover:shadow-lg transition-all"
+>
+  <p class="text-xs uppercase tracking-widest text-[color:var(--color-muted)] mb-2 flex items-center gap-2">
+    <span>{platformLabel}</span>
+    <span>·</span>
+    <span>{dateText}</span>
+  </p>
+  <h3 class="text-base font-medium tracking-tight group-hover:text-[color:var(--color-accent-from)] transition-colors">
+    {title}
+    <Icon name="lucide:arrow-up-right" class="inline-block size-3.5 ml-1 text-[color:var(--color-muted)] group-hover:text-[color:var(--color-fg)]" />
+  </h3>
+  {excerpt && <p class="mt-2 text-sm text-[color:var(--color-muted)] leading-relaxed">{excerpt}</p>}
+</a>

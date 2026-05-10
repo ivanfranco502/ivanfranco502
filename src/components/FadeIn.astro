@@ -1,0 +1,11 @@
+---
+interface Props {
+  as?: string;
+  class?: string;
+}
+const { as: Tag = 'div', class: className = '' } = Astro.props as Props;
+---
+
+<Tag class={`fade-in-on-scroll ${className}`}>
+  <slot />
+</Tag>

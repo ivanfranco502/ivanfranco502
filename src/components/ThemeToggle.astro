@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  aria-label="Toggle color theme"
+  class="p-2 rounded-md text-[color:var(--color-muted)] hover:text-[color:var(--color-fg)] hover:bg-[color:var(--color-subtle)] transition-colors"
+>
+  <Icon name="lucide:sun" class="size-5 hidden dark:hidden" data-icon-light />
+  <Icon name="lucide:moon" class="size-5 hidden" data-icon-dark />
+</button>
+
+<script>
+  function setIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll<HTMLElement>('[data-icon-light]').forEach(el => {
+      el.classList.toggle('hidden', isDark);
+    });
+    document.querySelectorAll<HTMLElement>('[data-icon-dark]').forEach(el => {
+      el.classList.toggle('hidden', !isDark);
+    });
+  }
+
+  function bind() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn || btn.dataset.bound === 'true') {
+      setIcons();
+      return;
+    }
+    btn.dataset.bound = 'true';
+    btn.addEventListener('click', () => {
+      const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      document.documentElement.classList.toggle('dark', next === 'dark');
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+      setIcons();
+    });
+    setIcons();
+  }
+
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>
