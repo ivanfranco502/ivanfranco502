@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-bg: #ffffff;
+  --color-fg: #0b0b0f;
+  --color-muted: #4a4a55;
+  --color-subtle: #e5e5ea;
+  --color-accent-from: #6366f1;
+  --color-accent-to: #ec4899;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  :root.dark {
+    color-scheme: dark;
+    --color-bg: #0b0b0f;
+    --color-fg: #f5f5f7;
+    --color-muted: #a1a1aa;
+    --color-subtle: #1f1f24;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-accent-from);
+    color: white;
+  }
+}
+
+@utility gradient-text {
+  background-image: linear-gradient(to right, var(--color-accent-from), var(--color-accent-to));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility fade-in {
+  animation: fade-up 600ms ease-out both;
+}
+
+@supports (animation-timeline: view()) {
+  .fade-in-on-scroll {
+    animation: fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in-on-scroll {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,33 @@
+---
+import { nav, site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="sticky top-0 z-40 backdrop-blur-md bg-[color:var(--color-bg)]/70 border-b border-[color:var(--color-subtle)]">
+  <nav class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <a href="/" class="font-semibold tracking-tight text-base flex items-center gap-2">
+      <span aria-hidden="true" class="inline-block size-2 rounded-full bg-gradient-to-r from-[color:var(--color-accent-from)] to-[color:var(--color-accent-to)]"></span>
+      <span>{site.name}</span>
+    </a>
+    <div class="flex items-center gap-1">
+      <ul class="hidden md:flex items-center gap-1 text-sm">
+        {nav.filter(item => item.href !== '/').map(item => {
+          const active = pathname === item.href || pathname.startsWith(item.href + '/');
+          return (
+            <li>
+              <a
+                href={item.href}
+                class={`px-3 py-2 rounded-md transition-colors hover:bg-[color:var(--color-subtle)] ${active ? 'text-[color:var(--color-fg)] font-medium' : 'text-[color:var(--color-muted)]'}`}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>

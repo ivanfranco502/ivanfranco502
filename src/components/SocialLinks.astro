@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components';
+import { socials } from '../data/site';
+
+type Props = { size?: 'sm' | 'md' };
+const { size = 'md' } = Astro.props;
+const iconSize = size === 'sm' ? 'size-4' : 'size-5';
+---
+
+<ul class="flex items-center gap-2">
+  {socials.map(item => (
+    <li>
+      <a
+        href={item.href}
+        target={item.href.startsWith('http') ? '_blank' : undefined}
+        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        aria-label={item.label}
+        class="inline-flex items-center justify-center p-2 rounded-md text-[color:var(--color-muted)] hover:text-[color:var(--color-fg)] hover:bg-[color:var(--color-subtle)] transition-colors"
+      >
+        <Icon name={item.icon} class={iconSize} />
+      </a>
+    </li>
+  ))}
+</ul>

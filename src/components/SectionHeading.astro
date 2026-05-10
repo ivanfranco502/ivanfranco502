@@ -1,0 +1,27 @@
+---
+type Props = {
+  eyebrow?: string;
+  title: string;
+  href?: string;
+  ctaLabel?: string;
+};
+
+const { eyebrow, title, href, ctaLabel } = Astro.props;
+---
+
+<div class="flex items-end justify-between gap-4 mb-6">
+  <div>
+    {eyebrow && (
+      <p class="text-xs uppercase tracking-widest text-[color:var(--color-muted)] mb-2">{eyebrow}</p>
+    )}
+    <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">{title}</h2>
+  </div>
+  {href && ctaLabel && (
+    <a
+      href={href}
+      class="text-sm text-[color:var(--color-muted)] hover:text-[color:var(--color-fg)] transition-colors whitespace-nowrap"
+    >
+      {ctaLabel} →
+    </a>
+  )}
+</div>

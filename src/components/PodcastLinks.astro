@@ -1,0 +1,40 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type Platforms = {
+  spotify: string;
+  applePodcasts: string;
+  pocketCasts: string;
+  googlePodcasts?: string;
+  anchor: string;
+};
+
+type Props = { platforms: Platforms };
+const { platforms } = Astro.props;
+
+const items = [
+  { label: 'Spotify', href: platforms.spotify, icon: 'simple-icons:spotify' },
+  { label: 'Apple Podcasts', href: platforms.applePodcasts, icon: 'simple-icons:applepodcasts' },
+  { label: 'Pocket Casts', href: platforms.pocketCasts, icon: 'simple-icons:pocketcasts' },
+  ...(platforms.googlePodcasts
+    ? [{ label: 'Google Podcasts', href: platforms.googlePodcasts, icon: 'simple-icons:googlepodcasts' }]
+    : []),
+  { label: 'Anchor', href: platforms.anchor, icon: 'simple-icons:anchor' },
+];
+---
+
+<ul class="flex flex-wrap gap-2">
+  {items.map(item => (
+    <li>
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-[color:var(--color-subtle)] hover:border-[color:var(--color-fg)]/30 hover:-translate-y-0.5 hover:shadow-md transition-all text-sm"
+      >
+        <Icon name={item.icon} class="size-4" />
+        <span>{item.label}</span>
+      </a>
+    </li>
+  ))}
+</ul>
