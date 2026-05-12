@@ -1,14 +1,45 @@
 ---
-import SocialLinks from './SocialLinks.astro';
-import { site } from '../data/site';
+import { execSync } from "node:child_process";
+import SocialLinks from "./SocialLinks.astro";
+import { site } from "../data/site";
 
 const year = new Date().getFullYear();
+
+const repo = "ivanfranco502/ivanfranco502";
+const fullSha =
+  process.env.VERCEL_GIT_COMMIT_SHA ??
+  (() => {
+    try {
+      return execSync("git rev-parse HEAD").toString().trim();
+    } catch {
+      return null;
+    }
+  })();
+const shortSha = fullSha?.slice(0, 7) ?? null;
 ---
 
 <footer class="border-t border-[color:var(--color-subtle)] mt-24">
-  <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+  <div
+    class="max-w-3xl mx-auto px-6 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6"
+  >
     <p class="text-sm text-[color:var(--color-muted)]">
-      © {year} {site.name} · Made in {site.location}.
+      © {year}
+      {site.name} · Made in {site.location}
+      {
+        shortSha && (
+          <>
+            {" · "}
+            <a
+              href={`https://github.com/${repo}/commit/${fullSha}`}
+              class="font-mono hover:text-[color:var(--color-fg)] transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {shortSha}
+            </a>
+          </>
+        )
+      }
     </p>
     <SocialLinks size="sm" />
   </div>

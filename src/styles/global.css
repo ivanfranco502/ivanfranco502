@@ -9,8 +9,8 @@
   --color-fg: #0b0b0f;
   --color-muted: #4a4a55;
   --color-subtle: #e5e5ea;
-  --color-accent-from: #6366f1;
-  --color-accent-to: #ec4899;
+  --color-accent-from: #64748b;
+  --color-accent-to: #6366f1;
 }
 
 @layer base {
