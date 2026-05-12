@@ -1,9 +1,9 @@
 ---
-import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
 
 type Props = {
   title?: string;
@@ -11,8 +11,10 @@ type Props = {
   ogImage?: string;
 };
 
-const { title, description, ogImage = '/og-image.png' } = Astro.props;
-const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
+const { title, description, ogImage = "/og-image.png" } = Astro.props;
+const fullTitle = title
+  ? `${title} — ${site.name}`
+  : `${site.name} — ${site.role}`;
 const desc = description ?? site.bio;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
@@ -39,12 +41,20 @@ const ogImageUrl = new URL(ogImage, Astro.site).toString();
     <meta name="twitter:image" content={ogImageUrl} />
     <script is:inline>
       (() => {
-        try {
-          const stored = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const theme = stored ?? (prefersDark ? 'dark' : 'light');
-          document.documentElement.classList.toggle('dark', theme === 'dark');
-        } catch {}
+        function applyTheme(doc) {
+          try {
+            const stored = localStorage.getItem("theme");
+            const prefersDark = window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches;
+            const theme = stored ?? (prefersDark ? "dark" : "light");
+            doc.documentElement.classList.toggle("dark", theme === "dark");
+          } catch {}
+        }
+        applyTheme(document);
+        document.addEventListener("astro:before-swap", (e) =>
+          applyTheme(e.newDocument),
+        );
       })();
     </script>
     <ClientRouter />

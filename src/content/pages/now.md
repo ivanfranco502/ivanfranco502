@@ -8,17 +8,16 @@ This is a [now page](https://nownownow.com/about) — a snapshot of what I'm foc
 ## Working on
 
 - Personal site (this one). Astro, Tailwind, deployed on Vercel.
-- The next batch of episodes for **Matebreak**.
+- The next batch of episodes for **Matebreak**. (Hopefully)
 
 ## Learning
 
-- Sharpening my Astro and content-collections muscles.
-- Web platform features I keep meaning to use — view transitions, scroll-driven animations, container queries.
+- Assembly
 
 ## Life
 
 - Living in Barcelona ☀️🌴.
-- Drinking too much coffee, balancing it out with mate.
+- Drinking too much mate, balancing it out with coffee.
 
 ---
 

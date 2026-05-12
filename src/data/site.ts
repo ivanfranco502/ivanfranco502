@@ -1,9 +1,9 @@
 export const site = {
-  name: 'Ivan Franco',
-  role: 'Software Developer',
+  name: 'Ivan Franco Tassara',
+  role: 'Software Engineer',
   location: 'Barcelona',
   tagline: 'Building tools, telling stories, drinking mate.',
-  bio: "I'm a software developer based in Barcelona. I build things for the web, write about what I learn, and host a podcast about software and culture.",
+  bio: "I'm a software engineer originally from Argentina and based in Barcelona. I build things for the web, write about what I learn, and host a podcast about software and culture.",
   email: 'hello@ivanfranco.dev',
   url: 'https://ivanfranco502.vercel.app',
 } as const;

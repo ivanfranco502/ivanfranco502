@@ -6,12 +6,16 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    url: z.string().url(),
+    url: z.string().url().optional(),
     repo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     order: z.number().default(0),
     cover: z.string().optional(),
+    category: z.enum(['system', 'papercut', 'website', 'tool', 'exercise']).default('tool'),
+  }).refine(data => Boolean(data.url || data.repo), {
+    message: 'Project must have either url or repo set',
+    path: ['url'],
   }),
 });
 

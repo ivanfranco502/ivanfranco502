@@ -41,3 +41,11 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+To finish before going live
+
+Drop your CV at public/resume/ivan-franco-cv.pdf (the /resume page already points there).
+Add a 1200×630 public/og-image.png for social previews.
+Update email in src/data/site.ts — I used hello@ivanfranco.dev as a placeholder.
+Add real articles by dropping .md files in src/content/articles/ (matches the Zod schema in src/content.config.ts). Until then, you'll see a build-time WARN about the empty articles collection — harmless.
+Once Vercel gives you the URL (or you attach a custom domain), update site in astro.config.mjs.
