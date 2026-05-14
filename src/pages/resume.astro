@@ -3,24 +3,107 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { Icon } from 'astro-icon/components';
 import { site } from '../data/site';
-
-const pdfPath = '/resume/ivan-franco-cv.pdf';
+import { summary, experience, education, skillGroups, languages, externalProfiles } from '../data/resume';
 ---
 
-<BaseLayout title="Resume" description={`Resume of ${site.name}, ${site.role} based in ${site.location}.`}>
+<BaseLayout
+  title="Resume"
+  description={`Resume of ${site.name}, ${site.role} based in ${site.location}.`}
+>
   <section class="max-w-3xl mx-auto px-6 pt-16 pb-16 fade-in">
     <SectionHeading eyebrow="CV" title="Resume" />
+
     <p class="text-[color:var(--color-muted)] -mt-3 mb-8 max-w-2xl leading-relaxed">
-      {site.name} — {site.role} based in {site.location}. The PDF below has the long version; for quick context, check the <a href="/projects" class="text-[color:var(--color-fg)] underline underline-offset-4 hover:text-[color:var(--color-accent-from)] transition-colors">projects</a> and <a href="/writing" class="text-[color:var(--color-fg)] underline underline-offset-4 hover:text-[color:var(--color-accent-from)] transition-colors">writing</a> pages.
+      {summary}
     </p>
 
-    <a
-      href={pdfPath}
-      download
-      class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[color:var(--color-fg)] text-[color:var(--color-bg)] font-medium hover:opacity-90 transition-opacity"
-    >
-      <Icon name="lucide:download" class="size-4" />
-      Download CV (PDF)
-    </a>
+    <ul class="flex flex-wrap gap-2 mb-12">
+      {externalProfiles.map(p => (
+        <li>
+          <a
+            href={p.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-[color:var(--color-subtle)] hover:border-[color:var(--color-fg)]/30 hover:-translate-y-0.5 hover:shadow-md transition-all text-sm"
+          >
+            <Icon name={p.icon} class="size-4" />
+            <span>{p.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mb-14">
+      <h2 class="text-sm uppercase tracking-widest text-[color:var(--color-muted)] mb-5">Experience</h2>
+      <ol class="space-y-8">
+        {experience.map(job => (
+          <li class="grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1">
+            <div>
+              <h3 class="text-base font-semibold tracking-tight">{job.role}</h3>
+              <p class="text-sm text-[color:var(--color-muted)]">
+                {job.company} <span class="opacity-70">· {job.location}</span>
+              </p>
+            </div>
+            <p class="text-xs text-[color:var(--color-muted)] sm:text-right whitespace-nowrap tabular-nums sm:pt-1">
+              {job.start} — {job.end}
+            </p>
+            <ul class="sm:col-span-2 mt-2 space-y-1.5 text-sm text-[color:var(--color-muted)] leading-relaxed list-disc pl-5 marker:text-[color:var(--color-accent-from)]">
+              {job.highlights.map(item => <li>{item}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="mb-14">
+      <h2 class="text-sm uppercase tracking-widest text-[color:var(--color-muted)] mb-5">Education</h2>
+      <ol class="space-y-4">
+        {education.map(item => (
+          <li class="grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1">
+            <div>
+              <h3 class="text-base font-semibold tracking-tight">{item.degree}</h3>
+              <p class="text-sm text-[color:var(--color-muted)]">
+                {item.institution} <span class="opacity-70">· {item.location}</span>
+              </p>
+            </div>
+            <p class="text-xs text-[color:var(--color-muted)] sm:text-right whitespace-nowrap tabular-nums sm:pt-1">
+              {item.start} — {item.end}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="mb-14">
+      <h2 class="text-sm uppercase tracking-widest text-[color:var(--color-muted)] mb-5">Skills</h2>
+      <dl class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+        {skillGroups.map(group => (
+          <div>
+            <dt class="text-sm font-medium mb-1.5">{group.label}</dt>
+            <dd>
+              <ul class="flex flex-wrap gap-1.5">
+                {group.items.map(item => (
+                  <li class="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-subtle)] text-[color:var(--color-muted)]">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div>
+      <h2 class="text-sm uppercase tracking-widest text-[color:var(--color-muted)] mb-5">Languages</h2>
+      <ul class="grid sm:grid-cols-3 gap-3">
+        {languages.map(lang => (
+          <li class="p-3 rounded-lg border border-[color:var(--color-subtle)]">
+            <p class="text-sm font-medium">{lang.name}</p>
+            <p class="text-xs text-[color:var(--color-muted)] mt-0.5">{lang.level}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
 </BaseLayout>
