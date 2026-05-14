@@ -1,0 +1,48 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = { episode: CollectionEntry<'episodes'> };
+const { episode } = Astro.props;
+const { title, url, publishedAt, duration, episodeNumber, season, excerpt } = episode.data;
+
+const dateText = publishedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const tag = season && episodeNumber
+  ? `S${season}·E${String(episodeNumber).padStart(2, '0')}`
+  : episodeNumber
+    ? `E${String(episodeNumber).padStart(2, '0')}`
+    : null;
+---
+
+<article class="group p-5 rounded-xl border border-[color:var(--color-subtle)] hover:border-[color:var(--color-fg)]/30 hover:-translate-y-0.5 hover:shadow-md transition-all">
+  <div class="flex items-baseline gap-3 text-xs text-[color:var(--color-muted)] mb-1.5">
+    {tag && <span class="font-mono">{tag}</span>}
+    <span>·</span>
+    <span>{dateText}</span>
+    {duration && (
+      <>
+        <span>·</span>
+        <span>{duration}</span>
+      </>
+    )}
+  </div>
+  <h3 class="text-base font-medium tracking-tight leading-snug">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hover:text-[color:var(--color-accent-from)] transition-colors"
+    >
+      {title}
+      <Icon name="lucide:arrow-up-right" class="inline-block size-3.5 ml-0.5 text-[color:var(--color-muted)] group-hover:text-[color:var(--color-fg)]" />
+    </a>
+  </h3>
+  {excerpt && (
+    <details class="mt-2">
+      <summary class="text-xs text-[color:var(--color-muted)] cursor-pointer select-none hover:text-[color:var(--color-fg)] transition-colors">
+        Show notes
+      </summary>
+      <p class="mt-2 text-sm text-[color:var(--color-muted)] leading-relaxed whitespace-pre-line">{excerpt}</p>
+    </details>
+  )}
+</article>

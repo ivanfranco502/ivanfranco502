@@ -3,9 +3,13 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PodcastLinks from '../components/PodcastLinks.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
 
 const podcastEntries = await getCollection('podcast');
 const show = podcastEntries.find(p => p.id === 'matebreak') ?? podcastEntries[0];
+
+const episodes = (await getCollection('episodes'))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
 <BaseLayout
@@ -25,7 +29,7 @@ const show = podcastEntries.find(p => p.id === 'matebreak') ?? podcastEntries[0]
         </div>
 
         {show.data.spotifyShowId && (
-          <div class="rounded-xl overflow-hidden border border-[color:var(--color-subtle)]">
+          <div class="rounded-xl overflow-hidden border border-[color:var(--color-subtle)] mb-12">
             <iframe
               src={`https://open.spotify.com/embed/show/${show.data.spotifyShowId}?theme=0`}
               width="100%"
@@ -38,6 +42,17 @@ const show = podcastEntries.find(p => p.id === 'matebreak') ?? podcastEntries[0]
           </div>
         )}
       </>
+    )}
+
+    {episodes.length > 0 && (
+      <div>
+        <h3 class="text-sm uppercase tracking-widest text-[color:var(--color-muted)] mb-4">
+          All episodes ({episodes.length})
+        </h3>
+        <div class="grid gap-3">
+          {episodes.map(episode => <EpisodeCard episode={episode} />)}
+        </div>
+      </div>
     )}
   </section>
 </BaseLayout>

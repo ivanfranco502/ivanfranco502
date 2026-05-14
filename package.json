@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "sync:episodes": "node scripts/sync-episodes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
