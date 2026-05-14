@@ -55,4 +55,18 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { projects, articles, podcast, pages };
+const episodes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/episodes' }),
+  schema: z.object({
+    title: z.string(),
+    url: z.string().url(),
+    publishedAt: z.coerce.date(),
+    duration: z.string().optional(),
+    durationSeconds: z.number().int().nonnegative().optional(),
+    episodeNumber: z.number().int().positive().optional(),
+    season: z.number().int().positive().optional(),
+    excerpt: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, articles, podcast, pages, episodes };

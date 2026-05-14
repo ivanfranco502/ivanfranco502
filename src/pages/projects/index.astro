@@ -1,41 +1,56 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
 
-const all = (await getCollection('projects'))
-  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.order - b.data.order);
+const all = (await getCollection("projects")).sort(
+  (a, b) =>
+    Number(b.data.featured) - Number(a.data.featured) ||
+    a.data.order - b.data.order,
+);
 
-const groups: { key: 'main' | 'papercut' | 'tool' | 'exercise'; heading: string | null }[] = [
-  { key: 'main', heading: null },
-  { key: 'papercut', heading: 'Papercut tools' },
-  { key: 'tool', heading: 'Other small tools' },
-  { key: 'exercise', heading: 'Exercises' },
+const groups: {
+  key: "system" | "papercut" | "website" | "tool" | "exercise";
+  heading: string | null;
+}[] = [
+  { key: "system", heading: "System/projects" },
+  { key: "papercut", heading: "Papercut tools" },
+  { key: "tool", heading: "Other small tools" },
+  { key: "website", heading: "Websites" },
+  { key: "exercise", heading: "Exercises" },
 ];
 
 const sections = groups
-  .map(g => ({ ...g, items: all.filter(p => p.data.category === g.key) }))
-  .filter(s => s.items.length > 0);
+  .map((g) => ({ ...g, items: all.filter((p) => p.data.category === g.key) }))
+  .filter((s) => s.items.length > 0);
 ---
 
-<BaseLayout title="Projects" description="Things I've built — Chrome extensions, web apps, and side projects.">
+<BaseLayout
+  title="Projects"
+  description="Things I've built — Chrome extensions, web apps, and side projects."
+>
   <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 fade-in">
     <SectionHeading eyebrow="Work" title="Projects" />
     <p class="text-[color:var(--color-muted)] -mt-3 mb-8 max-w-2xl">
-      A growing list of things I've built — some polished, some scrappy, all useful at least to me.
+      A growing list of things I've built — some polished, some scrappy, all
+      useful at least to me.
     </p>
-    {sections.map((section, i) => (
-      <div class={i > 0 ? 'mt-12' : ''}>
-        {section.heading && (
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-muted)] mb-4">
-            {section.heading}
-          </h2>
-        )}
-        <div class="grid sm:grid-cols-2 gap-4">
-          {section.items.map(project => <ProjectCard project={project} />)}
+    {
+      sections.map((section, i) => (
+        <div class={i > 0 ? "mt-12" : ""}>
+          {section.heading && (
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-muted)] mb-4">
+              {section.heading}
+            </h2>
+          )}
+          <div class="grid sm:grid-cols-2 gap-4">
+            {section.items.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </section>
 </BaseLayout>
