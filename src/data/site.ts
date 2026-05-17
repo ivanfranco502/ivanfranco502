@@ -4,7 +4,7 @@ export const site = {
   location: 'Barcelona',
   tagline: 'Building tools, telling stories, drinking mate.',
   bio: "I'm a software engineer originally from Argentina and based in Barcelona. I build things for the web, write about what I learn, and host a podcast about software and culture.",
-  email: 'hello@ivanfranco.dev',
+  email: 'hello@ivanfranco502.dev',
   url: 'https://ivanfranco502.dev',
 } as const;
 
@@ -27,7 +27,7 @@ export const socials: readonly SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/ivanfranco502', icon: 'simple-icons:github' },
   { label: 'Medium', href: 'https://medium.com/@ivanfranco502', icon: 'simple-icons:medium' },
   { label: 'Collected Notes', href: 'https://collectednotes.com/ivanfranco502', icon: 'lucide:notebook-pen' },
-  { label: 'Email', href: 'mailto:hello@ivanfranco.dev', icon: 'lucide:mail' },
+  { label: 'Email', href: 'mailto:hello@ivanfranco502.dev', icon: 'lucide:mail' },
 ] as const;
 
 export const writingProfiles = [
