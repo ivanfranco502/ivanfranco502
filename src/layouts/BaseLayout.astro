@@ -11,7 +11,7 @@ type Props = {
   ogImage?: string;
 };
 
-const { title, description, ogImage = "/og-image.png" } = Astro.props;
+const { title, description, ogImage = "/og-image.jpg" } = Astro.props;
 const fullTitle = title
   ? `${title} — ${site.name}`
   : `${site.name} — ${site.role}`;
