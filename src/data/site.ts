@@ -5,7 +5,7 @@ export const site = {
   tagline: 'Building tools, telling stories, drinking mate.',
   bio: "I'm a software engineer originally from Argentina and based in Barcelona. I build things for the web, write about what I learn, and host a podcast about software and culture.",
   email: 'hello@ivanfranco.dev',
-  url: 'https://ivanfranco502.vercel.app',
+  url: 'https://ivanfranco502.dev',
 } as const;
 
 export const nav = [

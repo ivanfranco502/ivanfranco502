@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
 export default defineConfig({
-  site: 'https://ivanfranco502.vercel.app',
+  site: 'https://ivanfranco502.dev',
   trailingSlash: 'never',
   prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
   vite: { plugins: [tailwindcss()] },
